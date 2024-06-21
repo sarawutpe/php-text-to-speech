@@ -8,7 +8,7 @@ COPY . /var/www/html/
 WORKDIR /var/www/html
 
 # Install dependencies if composer.json exists
-COPY composer.json composer.lock ./
+COPY composer.json ./
 RUN if [ -f composer.json ]; then \
       curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
       composer install; \
