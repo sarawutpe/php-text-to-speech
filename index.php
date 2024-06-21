@@ -30,6 +30,9 @@ function getTextToSpeech()
     try {
         // Headers
         $text = $_POST['text'];
+        $text = trim(request('text'));
+        $text = preg_replace('/\s+/', '', $text);
+
         if (empty($text)) {
             $responseArray = array(
                 "status" => "error",
@@ -78,7 +81,6 @@ function getTextToSpeech()
             'message' => 'Audio content generated successfully.',
             "voice_url" => $audioFilePath
         );
-
         echo json_encode($responseArray);
         exit();
     } catch (Exception $e) {
@@ -86,6 +88,8 @@ function getTextToSpeech()
         $responseArray = array("status" => "error", "message" => $e->getMessage());
         echo json_encode($responseArray);
         exit();
+    } finally {
+        $textToSpeechClient->close();
     }
 }
 

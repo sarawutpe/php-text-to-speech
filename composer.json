@@ -1,5 +1,9 @@
 {
-    "require": {
-        "google/cloud-text-to-speech": "v1.5.3"
-    }
+  "require": {
+    "php": ">=7.4",
+    "google/cloud-text-to-speech": "v1.8.1",
+    "google/protobuf": "^3.21.5 || ^4.26",
+    "google/gax": "^1.19.1",
+    "monolog/monolog": "^1.26 || ^2.0 || ^3.0"
+  }
 }
