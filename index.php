@@ -1,7 +1,11 @@
 <?php
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 'On');
-ini_set('memory_limit', '256M');
+// ini_set('error_reporting', E_ALL);
+// ini_set('display_errors', 'On');
+// ini_set('memory_limit', '256M');
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Origin: *');
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -25,12 +29,7 @@ function getTextToSpeech()
 {
     try {
         // Headers
-        // $allowed_domains = "http://127.0.0.1:5500";
-        $allowed_domains = "*";
-        header('Content-Type: application/json');
-        header("Access-Control-Allow-Origin: $allowed_domains");
-
-        $text = 'รวยเพราะเชื่อพ่อ สอนทริคซื้อลอตเตอรี ทำตามถูกแจ็กพอต 264 ล้าน เยอะสุดในประวัติศาสตร์...';
+        $text = $_POST['text'];
         if (empty($text)) {
             $responseArray = array(
                 "status" => "error",

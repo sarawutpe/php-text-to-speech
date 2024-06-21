@@ -1,21 +1,20 @@
-# Use the official PHP 7.4 Apache base image
+# Use the official PHP image as a base
 FROM php:7.4-apache
 
-# Set the working directory to /var/www/html
+# Copy application files to the default web directory
+COPY . /var/www/html/
+
+# Set the working directory
 WORKDIR /var/www/html
 
-# Copy the contents of the current directory to /var/www/html
-COPY . .
+# Install dependencies if composer.json exists
+COPY composer.json composer.lock ./
+RUN if [ -f composer.json ]; then \
+      curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+      composer install; \
+    fi
 
-# Enable mod_rewrite for Apache (if needed)
-RUN a2enmod rewrite
-
-# Install PHP extensions
-RUN apt-get update && \
-    apt-get install -y libpq-dev && \
-    docker-php-ext-install pdo pdo_mysql pdo_pgsql
-
-# Expose port 80 for Apache
+# Expose port 80
 EXPOSE 80
 
 # Start the Apache server
