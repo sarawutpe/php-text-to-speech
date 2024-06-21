@@ -29,8 +29,7 @@ function getTextToSpeech()
 {
     try {
         // Headers
-        $text = $_POST['text'];
-        $text = trim(request('text'));
+        $text = trim($_POST['text']);
         $text = preg_replace('/\s+/', '', $text);
 
         if (empty($text)) {
